@@ -26,7 +26,6 @@ export class GameBoard{
     placeShips(ship,startX,startY,isHorizontal = true)
     {
 
-        let randomIdx = Math.floor(Math.random() < 0.5);
 
         const {length} = ship;
         
@@ -39,7 +38,7 @@ export class GameBoard{
 
         if (startX < 0 || startY < 0 || endX >= this.size || endY >= this.size) {
     console.error('ship does not fit in the coordinates !');
-    
+    return false;
 }
 ship.coordinates = [];
 for(let i = 0; i<length; i++)
@@ -88,5 +87,4 @@ printBoard() {
     }
 
 }
-
 
