@@ -86,5 +86,42 @@ printBoard() {
         console.log("\n");
     }
 
+
+    //attack heandling ;
+
+    reciveAttack(x,y)
+    {
+        if(this.board[y][x] == "hit" || this.board[y][x] == "miss")
+        {
+            console.error('cell already attacked !');
+            return ;
+        }
+        const cell = this.board[y][x];
+
+        if(cell instanceof Ship)
+        {
+            cell.hit([x,y]);
+            this.board[y][x] = 'hit';
+            console.log(`hit on ${cell.name}`);
+
+            if(cell.isSunk())
+            {
+                console.log(`${cell.name} is sunk !`);
+            }
+        }
+            else{
+
+                this.board[y][x] = "miss";
+                this.missedAttack.push([x,y]);
+                console.log(`missed attack !!!`);
+                
+            }
+    }
+
+    areAllSunk()
+    {
+        return this.ships.every((ship)=>ship.isSunk());
+    }
+
 }
 
