@@ -87,7 +87,7 @@ printBoard() {
     }
 
 
-    //attack heandling ;
+    //attack heandling 
 
     reciveAttack(x,y)
     {

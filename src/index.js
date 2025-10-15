@@ -1,5 +1,6 @@
 import { CreateBoard } from './board';
 import { GameBoard } from './game-board';
+import { Player } from './player';
 import './styles/board.css';
 CreateBoard('player');
 CreateBoard('computer');
@@ -29,4 +30,6 @@ ele.forEach((e)=>{
 
 const game = new GameBoard();
 
-game.autoPlaceShips();
+const player = new Player('vasim',game);
+console.log(player.gameBoard.autoPlaceShips());
+
