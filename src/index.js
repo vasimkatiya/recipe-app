@@ -28,8 +28,16 @@ ele.forEach((e)=>{
 
 
 
-const game = new GameBoard();
+const play = new GameBoard();
 
-const player = new Player('vasim',game);
+const player = new Player('vasim',play);
 console.log(player.gameBoard.autoPlaceShips());
+
+console.log("-------------computer----------");
+
+const comp = new GameBoard();
+const computer = new Player('computer', comp);
+console.log(computer.gameBoard.autoPlaceShips());
+
+
 
