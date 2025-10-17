@@ -1,4 +1,5 @@
-const ships = require('./src/Ship');
+import Ship from "./src/ship";
+
 
 test("sum the number",()=>{
     const ship = new ships("destroyer",3);
