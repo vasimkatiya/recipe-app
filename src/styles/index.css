@@ -65,6 +65,7 @@ body {
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .cell:hover {
@@ -81,18 +82,9 @@ body {
   color: white;
 }
 
-.cell.hit::after {
-  content: "💥";
-}
-
 .cell.miss {
   background: #64b5f6;
-}
-
-.cell.miss::after {
-  content: "•";
   color: white;
-  font-size: 1.5rem;
 }
 
 .msg {
@@ -100,6 +92,22 @@ body {
   margin: 1rem 0;
   min-height: 2rem;
   font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.win-message {
+  font-size: 2rem;
+  color: #ffd700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
 }
 
 .place-option {
@@ -154,5 +162,6 @@ button:disabled {
   .cell {
     width: 30px;
     height: 30px;
+    font-size: 1rem;
   }
 }

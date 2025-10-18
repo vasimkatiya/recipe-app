@@ -1,52 +1,42 @@
-// player.js
 import { GameBoard } from "./game-board.js";
 
-export class Player {  // Make sure it's exported
+export class Player {
   constructor(name, gameBoard) {
     this.name = name;
     this.gameBoard = gameBoard;
-    this.attacks = []; // array of [x,y] attacked
+    this.attacks = new Set();
   }
 
-  // performs attack on opponent board and returns result string
   attack(oppoBoard, x, y) {
-    if (this.attacks.some(([a, b]) => a === x && b === y)) {
-      console.error("already attacked !");
+    const attackKey = `${x},${y}`;
+    if (this.attacks.has(attackKey)) {
       return "already";
     }
 
-    this.attacks.push([x, y]);
+    this.attacks.add(attackKey);
     const res = oppoBoard.receiveAttack(x, y);
     console.log(`${this.name} attacked [${x}, ${y}] -> ${res}`);
     return res;
   }
 
-  // choose random coordinate that hasn't been used by this player yet
   randomAttack(oppoBoard) {
-    let x, y, valid = false, attempts = 0;
-    while (!valid && attempts < 5000) {
-      x = Math.floor(Math.random() * oppoBoard.size);
-      y = Math.floor(Math.random() * oppoBoard.size);
-      valid = !this.attacks.some(([a, b]) => a === x && b === y);
-      attempts++;
-    }
-    if (!valid) {
-      // fallback: linear search for a free cell
-      for (let yy = 0; yy < oppoBoard.size; yy++) {
-        for (let xx = 0; xx < oppoBoard.size; xx++) {
-          if (!this.attacks.some(([a, b]) => a === xx && b === yy)) {
-            x = xx; y = yy; valid = true; break;
-          }
+    const size = oppoBoard.size;
+    const allPossibleAttacks = [];
+    
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const attackKey = `${x},${y}`;
+        if (!this.attacks.has(attackKey)) {
+          allPossibleAttacks.push([x, y]);
         }
-        if (valid) break;
       }
     }
-    if (!valid) {
-      // no valid moves left
+
+    if (allPossibleAttacks.length === 0) {
       return null;
     }
-    // record the chosen attack coord so player won't repeat it
-    this.attacks.push([x, y]);
-    return [x, y];
+
+    const randomIndex = Math.floor(Math.random() * allPossibleAttacks.length);
+    return allPossibleAttacks[randomIndex];
   }
 }
